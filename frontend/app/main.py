@@ -25,8 +25,7 @@ def input_page(request: Request):
 
 @app.get("/output", response_class=HTMLResponse)
 def output_page(request: Request, text : str):
-	#clean_text  = re.sub(r"[^a-zA-Z0-9_]", " ", text)
-	#data  = '{"text":"' + clean_text + '"}'
+	
 	text = to_lowercase(text)
 	text = remove_website_links(text)
 	text = remove_equations(text)
@@ -36,10 +35,9 @@ def output_page(request: Request, text : str):
 	text = lemmatize_text(text)
 	text = number_to_text(text)
 	text = stem_text(text)
-	#text = text.encode('utf-8').decode('ascii', 'ignore')
 	result = requests.post(url   = "http://0.0.0.0:8000/predict",
-                           data  = text,
-                           headers={'Content-Type': 'text/plain'})
+							data  = text,
+							headers={'Content-Type': 'text/plain'})
 
 	topic  = result.json()["label"]
 

@@ -27,8 +27,7 @@ def predict(doc : str = Body(...)):
     Data cleaning part added for api usage only.
     Webapp requires these steps inside it's code file.
     """
-    #doc = re.sub(r'\$.*?\$', '', doc)
-    #doc = doc.encode('utf-8').decode('ascii', 'ignore')
+    
     model  = joblib.load("models/svc_best_model_stemmed.joblib")
     result = model.predict([doc])
     label  = relabel(result[0])
